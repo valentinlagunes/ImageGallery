@@ -56,15 +56,23 @@
 		6AAC409A24DF67C200C9B59D /* ImageGallery */ = {
 			isa = PBXGroup;
 			children = (
-				6AAC409B24DF67C200C9B59D /* AppDelegate.swift */,
-				6AAC409D24DF67C200C9B59D /* SceneDelegate.swift */,
+				6AAC40AF24DF686100C9B59D /* SupportingFiles */,
 				6AAC409F24DF67C200C9B59D /* ViewController.swift */,
 				6AAC40A124DF67C200C9B59D /* Main.storyboard */,
-				6AAC40A424DF67C200C9B59D /* Assets.xcassets */,
-				6AAC40A624DF67C200C9B59D /* LaunchScreen.storyboard */,
 				6AAC40A924DF67C200C9B59D /* Info.plist */,
 			);
 			path = ImageGallery;
+			sourceTree = "<group>";
+		};
+		6AAC40AF24DF686100C9B59D /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				6AAC409B24DF67C200C9B59D /* AppDelegate.swift */,
+				6AAC409D24DF67C200C9B59D /* SceneDelegate.swift */,
+				6AAC40A424DF67C200C9B59D /* Assets.xcassets */,
+				6AAC40A624DF67C200C9B59D /* LaunchScreen.storyboard */,
+			);
+			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
