@@ -32,27 +32,8 @@ class ImageCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    //@IBOutlet weak var imageView: UIImageView!
-//    @IBOutlet weak var scrollView: UIScrollView! {
-//        didSet {
-//            scrollView.minimumZoomScale = 1/25
-//            scrollView.maximumZoomScale = 1.0
-//            scrollView.delegate = self
-//            scrollView.addSubview(imageView)
-//
-//        }
-//    }
-    
-//    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-//        return imageView
-//    }
-//
-    
     private func fetchImage() {
-        //print("got image")
         if let url = imageURL {
-            //           do {
-            //reseting image
             imageView.image = nil
             spinner.isHidden = false
             spinner.startAnimating()
@@ -64,10 +45,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
                     }
                 }
             }
-            
-            //            } catch let error {
-            //
-            //            }
+
         }
     }
     

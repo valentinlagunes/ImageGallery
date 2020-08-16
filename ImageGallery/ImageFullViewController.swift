@@ -60,7 +60,6 @@ class ImageFullViewController: UIViewController, UIScrollViewDelegate {
     
     private func fetchImage() {
         if let url = imageURL {
- //           do {
             spinner.startAnimating()
             DispatchQueue.global(qos: .userInitiated).async { [weak self] in
                 let urlContents = try? Data(contentsOf: url)
@@ -70,19 +69,11 @@ class ImageFullViewController: UIViewController, UIScrollViewDelegate {
                     }
                 }
             }
-
-//            } catch let error {
-//
-//            }
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        if imageURL == nil {
-//            imageURL = URL(string:  "https://upload.wikimedia.org/wikipedia/commons/5/55/Stanford_Oval_September_2013_panorama.jpg")
-//        }
     }
 
 }

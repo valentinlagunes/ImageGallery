@@ -9,7 +9,7 @@
 import UIKit
 
 class GalleryTableViewController: UITableViewController {
-    
+    //store all undeleted titles and recently deleted titles separately
     var galleryDocuments = ["One", "Two", "Three"]
     var deletedDocuments = [String]()
     var galleries = [String: ImageCollection]()
@@ -57,6 +57,7 @@ class GalleryTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "GalleryTitle", for: indexPath) as? GalleryTitleCell
         {
+            //set the cells parent table view contoller to ourself
             if cell.parentTableView == nil {
                 cell.parentTableView = self
             }
@@ -113,6 +114,8 @@ class GalleryTableViewController: UITableViewController {
             if indexPath.section == 0
             {
                 tableView.performBatchUpdates({
+                    //delete from gallery documents and gallery dictionary and move to
+                    //recently deleted documents and dictionary
                     let deletedGalleryName = galleryDocuments.remove(at: indexPath.row)
                     deletedDocuments.insert(deletedGalleryName, at: deletedDocuments.count)
                     let deletedGalleryDict = galleries.remove(at: galleries.index(forKey: deletedGalleryName)!)
@@ -134,13 +137,11 @@ class GalleryTableViewController: UITableViewController {
                     tableView.deleteRows(at: [indexPath], with: .fade)
                 })
             }
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
     }
     
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        if indexPath.section == 0 {
+        if indexPath.section == 0 { //can't undelete something that hasn't been deleted
             return nil
         }
         else //undelete a recently deleted gallery
@@ -149,6 +150,8 @@ class GalleryTableViewController: UITableViewController {
                                                  title: "UNDO",
                                                  handler: { (contextAction, sourceView, completionHandler) in
                                                     tableView.performBatchUpdates({
+                                                        //remove from recently deleted dictionary and title array
+                                                        //and move back to regular gallery at end of title array
                                                         let oldGalleryName = self.deletedDocuments.remove(at: indexPath.row)
                                                         self.galleryDocuments.insert(oldGalleryName, at: self.galleryDocuments.count)
                                                         let oldGalleryDict = self.recentlyDeletedGalleries.remove(at: self.recentlyDeletedGalleries.index(forKey: oldGalleryName)!)
@@ -175,34 +178,13 @@ class GalleryTableViewController: UITableViewController {
     }
     
     override func tableView(_: UITableView, didSelectRowAt: IndexPath) {
-        if didSelectRowAt.section == 1 { //can't select recently deleted galleries
-            return
-        }
-        else
+        if didSelectRowAt.section == 0  //only ever select an undeleted row, can't even click rec del
         {
             currentIndexPath = didSelectRowAt
             let cell = tableView.cellForRow(at: didSelectRowAt)
             performSegue(withIdentifier: "gallerySegue", sender: cell)
         }
     }
-    
-    
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-     
-     }
-     */
-    
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
-    
-    
     
     // MARK: - Navigation
     
@@ -216,7 +198,6 @@ class GalleryTableViewController: UITableViewController {
             //nav controller, so have to go through
             //this extra step
             if let nav = segue.destination as? UINavigationController{
-                
                 if let destination = nav.topViewController as? ImageGalleryViewController {
                     destination.imageCollection = galleries[(cell.textField.text)!]!
                     

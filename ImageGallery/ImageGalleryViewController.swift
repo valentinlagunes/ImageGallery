@@ -38,9 +38,6 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDelegateFlow
             flowLayout?.invalidateLayout()
             //collectionView.reloadData()
         }
-//        if recognizer.state == .ended {
-//            collectionView.reloadData()
-//        }
         
     }
     
@@ -49,23 +46,13 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDelegateFlow
     lazy var standardWidth = collectionView.frame.width / 5
     var imageCollection = ImageCollection() {
         didSet {
-            //print("here")
-            //print(imageCollection.images)
             collectionView?.reloadData()
         }
     }
-   // var imageCollection.images = [ImageInfoModel]()
-    //    var imageFetcher: ImageFetcher!
-    //
-    //    @IBOutlet weak var dropZone: UIView! {
-    //        didSet {
-    //            dropZone.addInteraction(UIDropInteraction(delegate: self))
-    //        }
-    //    }
+
     
     override func viewDidLayoutSubviews() {
         //collectionView.reloadData()
-       
     }
     
     
@@ -73,24 +60,16 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDelegateFlow
         return collectionView?.collectionViewLayout as? UICollectionViewFlowLayout
     }
     
-    //add a tap gesture recognizer
+    //segue to full image view
     @objc func tapSegue(recognizer: UITapGestureRecognizer) {
         if let indexPath = collectionView.indexPathForItem(at: recognizer.location(in: collectionView)) {
             let cell = collectionView.cellForItem(at: indexPath) as? ImageCollectionViewCell
-            
             performSegue(withIdentifier: "FullImage", sender: cell)
         }
     }
     
     private func dragItems(at indexPath: IndexPath) -> [UIDragItem] {
-        //        if let imaURL = (collectionView.cellForItem(at: indexPath) as? ImageCollectionViewCell)?.imageURL {
-        //            let dragItem = UIDragItem(itemProvider: NSItemProvider(contentsOf: imaURL)!)
-        //            dragItem.localObject = imaURL
-        //            return [dragItem]
-        //        } else {
-        //            return []
-        //        }
-        //
+        //drag around an ImageModel
         if let itemCell = collectionView?.cellForItem(at: indexPath)
             as? ImageCollectionViewCell,
             let image = itemCell.imageView.image {
@@ -107,9 +86,7 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDelegateFlow
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         return CGSize(width: standardWidth, height: standardWidth/CGFloat(imageCollection.images[indexPath.item].ratio))
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
@@ -120,6 +97,7 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDelegateFlow
     func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
         let destinationIndexPath = coordinator.destinationIndexPath ?? IndexPath(item: 0, section: 0)
         for item in coordinator.items {
+            //local object
             if let sourceIndexPath = item.sourceIndexPath {
                 if let imageModelCell = item.dragItem.localObject as? ImageInfoModel {
                     collectionView.performBatchUpdates({
@@ -130,10 +108,11 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDelegateFlow
                     })
                     coordinator.drop(item.dragItem, toItemAt: destinationIndexPath)
                 }
-            } else {
+            } else { //dragging in image from the internet
                 let placeholderContext = coordinator.drop(item.dragItem, to: UICollectionViewDropPlaceholder(insertionIndexPath: destinationIndexPath, reuseIdentifier: "DropPlaceholderCell"))
                 var localURL : URL?
                 var localRatio : Double?
+                //store image ratio
                 item.dragItem.itemProvider.loadObject(ofClass: UIImage.self) {
                     (provider, error) in
                     DispatchQueue.main.async {
@@ -144,7 +123,7 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDelegateFlow
                     }
                 }
                 item.dragItem.itemProvider.loadObject(ofClass: NSURL.self) {(provider, error) in
-                    
+                    //store image url
                     DispatchQueue.main.async {
                         if let url = provider as? URL {
                             localURL = url.imageURL

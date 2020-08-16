@@ -13,6 +13,7 @@ class GalleryTitleCell: UITableViewCell, UITextFieldDelegate {
     
     private var oldTitleForEditing : String?
     
+    //initially disabled in storyboard
     @IBOutlet weak var textField: UITextField!{
         didSet {
             let tap = UITapGestureRecognizer(target: self, action: #selector(beginTyping))
@@ -25,12 +26,13 @@ class GalleryTitleCell: UITableViewCell, UITextFieldDelegate {
     @objc func beginTyping() {
         oldTitleForEditing = textField.text
         textField.isEnabled = true
-        print("called beginTyping")
+        //print("called beginTyping")
         textField.becomeFirstResponder()
     }
 
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        //needs to be disabled to be able to single click the row
         textField.isEnabled = false
         textField.resignFirstResponder()
         return true
@@ -41,6 +43,8 @@ class GalleryTitleCell: UITableViewCell, UITextFieldDelegate {
         var oldIndex : Array<String>.Index?
         if parentTableView?.galleries[oldTitleForEditing ?? ""] != nil
         {
+            //change title in parent table view controller
+            //change both dictionary and title arrays
             oldIndex = parentTableView?.galleryDocuments.firstIndex(of: oldTitleForEditing!)
             parentTableView?.galleryDocuments.remove(at: oldIndex!)
             parentTableView?.galleryDocuments.insert(textField.text!, at: oldIndex!)
