@@ -9,8 +9,7 @@
 import UIKit
 
 class ImageGalleryViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDragDelegate, UICollectionViewDropDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
-    
-    
+
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
             collectionView.dataSource = self
@@ -50,8 +49,8 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDelegateFlow
     lazy var standardWidth = collectionView.frame.width / 5
     var imageCollection = ImageCollection() {
         didSet {
-            print("here")
-            print(imageCollection.images)
+            //print("here")
+            //print(imageCollection.images)
             collectionView?.reloadData()
         }
     }

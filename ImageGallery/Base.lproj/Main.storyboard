@@ -17,13 +17,30 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GalleryTitle" id="Kmc-6x-BEy">
-                                <rect key="frame" x="0.0" y="28" width="320" height="43.5"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GalleryTitle" id="Kmc-6x-BEy" customClass="GalleryTitleCell" customModule="ImageGallery" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="320" height="34.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Kmc-6x-BEy" id="KR3-yd-BJj">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="34.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bcP-eP-HRB">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="34.5"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="bcP-eP-HRB" firstAttribute="leading" secondItem="KR3-yd-BJj" secondAttribute="leading" id="crn-n8-Idv"/>
+                                        <constraint firstAttribute="bottom" secondItem="bcP-eP-HRB" secondAttribute="bottom" id="dOm-Xz-beD"/>
+                                        <constraint firstAttribute="trailing" secondItem="bcP-eP-HRB" secondAttribute="trailing" id="sJj-0P-u5F"/>
+                                        <constraint firstItem="bcP-eP-HRB" firstAttribute="top" secondItem="KR3-yd-BJj" secondAttribute="top" id="wuG-Zf-c7v"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="textField" destination="bcP-eP-HRB" id="Krn-h3-crh"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

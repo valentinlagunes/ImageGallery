@@ -55,21 +55,32 @@ class GalleryTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "GalleryTitle", for: indexPath)
-        // Configure the cell...
-        if indexPath.section == 0
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "GalleryTitle", for: indexPath) as? GalleryTitleCell
         {
-            cell.textLabel?.text =  galleryDocuments[indexPath.row]
-            //if we haven't saved the data for this table row yet
-            if galleries[(cell.textLabel?.text)!] == nil {
-                galleries[(cell.textLabel?.text)!] = ImageCollection()
+            if cell.parentTableView == nil {
+                cell.parentTableView = self
             }
+            // Configure the cell...
+            if indexPath.section == 0
+            {
+                cell.textField.text = galleryDocuments[indexPath.row]
+                //cell.textLabel?.text =  galleryDocuments[indexPath.row]
+                //if we haven't saved the data for this table row yet
+                if galleries[cell.textField.text!] == nil {
+                    galleries[cell.textField.text!] = ImageCollection()
+                }
+            }
+            else
+            { //recently deleted
+                cell.textField.text = deletedDocuments[indexPath.row]
+            }
+            return cell
         }
-        else
-        { //recently deleted
-            cell.textLabel?.text = deletedDocuments[indexPath.row]
+        else //should never actually get here
+        {
+            return tableView.dequeueReusableCell(withIdentifier: "GalleryTitle", for: indexPath)
         }
-        return cell
+        
     }
     
     @IBAction func newGallery(_ sender: UIBarButtonItem) {
@@ -199,7 +210,7 @@ class GalleryTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-        if let cell = sender as? UITableViewCell
+        if let cell = sender as? GalleryTitleCell
         {
             //my imagegallery controller is embedded in
             //nav controller, so have to go through
@@ -207,7 +218,7 @@ class GalleryTableViewController: UITableViewController {
             if let nav = segue.destination as? UINavigationController{
                 
                 if let destination = nav.topViewController as? ImageGalleryViewController {
-                    destination.imageCollection = galleries[(cell.textLabel?.text)!]!
+                    destination.imageCollection = galleries[(cell.textField.text)!]!
                     
                 }
             }
