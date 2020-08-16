@@ -48,7 +48,13 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDelegateFlow
     
     //fit about five images per row
     lazy var standardWidth = collectionView.frame.width / 5
-    var imageCollection = ImageCollection()
+    var imageCollection = ImageCollection() {
+        didSet {
+            print("here")
+            print(imageCollection.images)
+            collectionView?.reloadData()
+        }
+    }
    // var imageCollection.images = [ImageInfoModel]()
     //    var imageFetcher: ImageFetcher!
     //

@@ -24,9 +24,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="GYD-at-n2d" kind="showDetail" identifier="gallerySegue" id="rlL-o7-SqD"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -41,6 +38,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="Mke-xT-zSN" kind="showDetail" identifier="gallerySegue" id="bYT-Ne-MqA"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6F5-d9-Yzh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -117,14 +117,13 @@
         <!--Image Gallery View Controller-->
         <scene sceneID="9a8-WC-CXM">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vw2-V5-LfH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="GYD-at-n2d" customClass="ImageGalleryViewController" customModule="ImageGallery" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Rig-W7-WgC">
                         <rect key="frame" x="0.0" y="0.0" width="703.5" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="e4a-UD-AoP">
-                                <rect key="frame" x="0.0" y="0.0" width="703.5" height="768"/>
+                                <rect key="frame" x="0.0" y="50" width="703.5" height="718"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ZTd-pk-Wf3">
                                     <size key="itemSize" width="128" height="128"/>
@@ -196,13 +195,13 @@
                         <outlet property="collectionView" destination="e4a-UD-AoP" id="3OP-hF-NKj"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vw2-V5-LfH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="580.078125" y="28.90625"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="jLq-Ad-GdQ">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iok-rT-PQC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Mke-xT-zSN" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nkE-ml-MmR">
@@ -214,11 +213,12 @@
                         <segue destination="GYD-at-n2d" kind="relationship" relationship="rootViewController" id="o7e-OL-Xug"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iok-rT-PQC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-144.140625" y="28.90625"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="rlL-o7-SqD"/>
+        <segue reference="bYT-Ne-MqA"/>
     </inferredMetricsTieBreakers>
 </document>
